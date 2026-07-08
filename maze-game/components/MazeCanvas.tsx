@@ -19,9 +19,7 @@ export default function MazeCanvas() {
 
   useEffect(() => {
     const img = new Image();
-    img.src =
-      (process.env.NODE_ENV === "production" ? "/jackson-bday-2026" : "") +
-      "/jackson.png";
+    img.src = "/jackson-bday-2026/jackson.png";
 
     img.onload = () => {
       playerImage.current = img;
