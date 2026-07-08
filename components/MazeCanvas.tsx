@@ -34,6 +34,10 @@ export default function MazeCanvas() {
     "Call me chicken Jack 🦴",
     "Ask me what movie im working on 🫦",
     "Ask me what i ate for lunch today 👠",
+    "remember when i kept tickling nick gomez HAHAHAHHAHAHA",
+    "remember when i kept trying to pick up Jake HAHHHAHAHAHAH",
+    "remember when i kissed jordyn 🙊",
+
   ];
 
   useEffect(() => {
@@ -226,7 +230,7 @@ export default function MazeCanvas() {
           <div className="modal">
             <p>{message}</p>
 
-            <button onClick={restartMaze}>Play Again</button>
+            <button onClick={restartMaze}>ok</button>
           </div>
         </div>
       )}
