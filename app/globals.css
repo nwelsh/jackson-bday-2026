@@ -11,3 +11,8 @@ canvas {
   display: block;
   margin: auto;
 }
+
+.title {
+  color: rgb(89, 255, 0);
+  text-align: center;
+}

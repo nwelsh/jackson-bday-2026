@@ -10,21 +10,32 @@ import { useEffect, useRef, useState } from "react";
 import { generateMaze } from "../lib/maze";
 import { Cell } from "../lib/types";
 
-const ROWS = 12;
-const COLS = 12;
+const ROWS = 8;
+const COLS = 8;
 
 export default function MazeCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const playerImage = useRef<HTMLImageElement | null>(null);
+  const exitImage = useRef<HTMLImageElement | null>(null);
 
   useEffect(() => {
-    const img = new Image();
-    img.src =
+    const player = new Image();
+    player.src =
       (process.env.NODE_ENV === "production" ? "/jackson-bday-2026" : "") +
       "/jackson.png";
 
-    img.onload = () => {
-      playerImage.current = img;
+    player.onload = () => {
+      playerImage.current = player;
+      draw();
+    };
+
+    const exit = new Image();
+    exit.src =
+      (process.env.NODE_ENV === "production" ? "/jackson-bday-2026" : "") +
+      "/gold.png";
+
+    exit.onload = () => {
+      exitImage.current = exit;
       draw();
     };
   }, []);
@@ -98,14 +109,17 @@ export default function MazeCanvas() {
     });
 
     // Exit
-    ctx.fillStyle = "gold";
+    const exit = exitImage.current;
 
-    ctx.fillRect(
-      (COLS - 1) * cellSize + cellSize * 0.3,
-      (ROWS - 1) * cellSize + cellSize * 0.3,
-      cellSize * 0.4,
-      cellSize * 0.4,
-    );
+    if (exit) {
+      ctx.drawImage(
+        exit,
+        (COLS - 1) * cellSize + cellSize * 0.15,
+        (ROWS - 1) * cellSize + cellSize * 0.15,
+        cellSize * 0.7,
+        cellSize * 0.7,
+      );
+    }
 
     // Player
     const img = playerImage.current;
@@ -171,10 +185,17 @@ export default function MazeCanvas() {
   }
 
   return (
-    <canvas
-      ref={canvasRef}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-    />
+    <div className="maze-container">
+      <h1 className="title">HELP JACKSON GET TO BDUBS</h1>
+
+      <canvas
+        ref={canvasRef}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      />
+
+      <h1 className="title">happy birthday jackson</h1>
+      <h1 className="title">💖 Mike and Nicole</h1>
+    </div>
   );
 }
