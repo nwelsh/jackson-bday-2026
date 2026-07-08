@@ -1,11 +1,5 @@
 "use client";
 
-// ideas
-/* 
-1. add music 
-2. when completed, a popup shows up that says a jackson-ism 
-*/
-
 import { useEffect, useRef, useState } from "react";
 import { generateMaze } from "../lib/maze";
 import { Cell } from "../lib/types";
@@ -15,11 +9,36 @@ const COLS = 8;
 
 export default function MazeCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
   const playerImage = useRef<HTMLImageElement | null>(null);
   const exitImage = useRef<HTMLImageElement | null>(null);
 
+  const [maze, setMaze] = useState<Cell[][]>(() => generateMaze(ROWS, COLS));
+
+  const [player, setPlayer] = useState({
+    row: 0,
+    col: 0,
+  });
+
+  const [showModal, setShowModal] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const startTouch = useRef({ x: 0, y: 0 });
+
+  const sayings = [
+    "Jackson says: time for BDUBS 🍗",
+    "I LOVE BDUBS!!!!!!!!! 🧞‍♂️",
+    "I am jackson 🐸",
+    "I am 24 🎅🏽",
+    "Did you know buffalo wild wings serves chicken wings? 🍔",
+    "Call me chicken Jack 🦴",
+    "Ask me what movie im working on 🫦",
+    "Ask me what i ate for lunch today 👠",
+  ];
+
   useEffect(() => {
     const player = new Image();
+
     player.src =
       (process.env.NODE_ENV === "production" ? "/jackson-bday-2026" : "") +
       "/jackson.png";
@@ -30,6 +49,7 @@ export default function MazeCanvas() {
     };
 
     const exit = new Image();
+
     exit.src =
       (process.env.NODE_ENV === "production" ? "/jackson-bday-2026" : "") +
       "/gold.png";
@@ -40,15 +60,6 @@ export default function MazeCanvas() {
     };
   }, []);
 
-  const [maze, setMaze] = useState<Cell[][]>(() => generateMaze(ROWS, COLS));
-
-  const [player, setPlayer] = useState({
-    row: 0,
-    col: 0,
-  });
-
-  const startTouch = useRef({ x: 0, y: 0 });
-
   useEffect(() => {
     draw();
   }, [maze, player]);
@@ -58,7 +69,9 @@ export default function MazeCanvas() {
 
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d")!;
+    const ctx = canvas.getContext("2d");
+
+    if (!ctx) return;
 
     const size = Math.min(window.innerWidth, window.innerHeight);
 
@@ -67,9 +80,11 @@ export default function MazeCanvas() {
 
     const cellSize = size / COLS;
 
+    // Background
     ctx.fillStyle = "#111";
     ctx.fillRect(0, 0, size, size);
 
+    // Maze walls
     ctx.strokeStyle = "white";
     ctx.lineWidth = 2;
 
@@ -108,7 +123,7 @@ export default function MazeCanvas() {
       });
     });
 
-    // Exit
+    // Exit image
     const exit = exitImage.current;
 
     if (exit) {
@@ -121,10 +136,8 @@ export default function MazeCanvas() {
       );
     }
 
-    // Player
+    // Player image
     const img = playerImage.current;
-
-    console.log(img);
 
     if (img) {
       ctx.drawImage(
@@ -140,7 +153,7 @@ export default function MazeCanvas() {
   function move(direction: "up" | "down" | "left" | "right") {
     const cell = maze[player.row][player.col];
 
-    let next = { ...player };
+    const next = { ...player };
 
     if (direction === "up" && !cell.top) next.row--;
     if (direction === "down" && !cell.bottom) next.row++;
@@ -153,15 +166,24 @@ export default function MazeCanvas() {
 
     setPlayer(next);
 
+    // Reached exit
     if (next.row === ROWS - 1 && next.col === COLS - 1) {
-      setTimeout(() => {
-        setMaze(generateMaze(ROWS, COLS));
-        setPlayer({
-          row: 0,
-          col: 0,
-        });
-      }, 300);
+      const randomMessage = sayings[Math.floor(Math.random() * sayings.length)];
+
+      setMessage(randomMessage);
+      setShowModal(true);
     }
+  }
+
+  function restartMaze() {
+    setShowModal(false);
+
+    setMaze(generateMaze(ROWS, COLS));
+
+    setPlayer({
+      row: 0,
+      col: 0,
+    });
   }
 
   function handleTouchStart(e: React.TouchEvent) {
@@ -173,6 +195,7 @@ export default function MazeCanvas() {
 
   function handleTouchEnd(e: React.TouchEvent) {
     const dx = e.changedTouches[0].clientX - startTouch.current.x;
+
     const dy = e.changedTouches[0].clientY - startTouch.current.y;
 
     if (Math.abs(dx) > Math.abs(dy)) {
@@ -186,7 +209,7 @@ export default function MazeCanvas() {
 
   return (
     <div className="maze-container">
-      <h1 className="title">HELP JACKSON GET TO BDUBS</h1>
+      <h1 className="title">HELP JACKSON GET TO BDUBS 🍗</h1>
 
       <canvas
         ref={canvasRef}
@@ -194,8 +217,19 @@ export default function MazeCanvas() {
         onTouchEnd={handleTouchEnd}
       />
 
-      <h1 className="title">happy birthday jackson</h1>
+      <h1 className="title">happy birthday jackson 🎂</h1>
+
       <h1 className="title">💖 Mike and Nicole</h1>
+
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <p>{message}</p>
+
+            <button onClick={restartMaze}>Play Again</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -16,3 +16,40 @@ canvas {
   color: rgb(89, 255, 0);
   text-align: center;
 }
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 10;
+}
+
+.modal {
+  background: white;
+  padding: 32px;
+  border-radius: 16px;
+  text-align: center;
+  max-width: 300px;
+}
+
+.modal h2 {
+  margin-bottom: 12px;
+}
+
+.modal p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.modal button {
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
