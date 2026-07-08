@@ -1,6 +1,6 @@
 "use client";
 
-// ideas 
+// ideas
 /* 
 1. add music 
 2. when completed, a popup shows up that says a jackson-ism 
@@ -19,7 +19,9 @@ export default function MazeCanvas() {
 
   useEffect(() => {
     const img = new Image();
-    img.src = "/jackson.png";
+    img.src =
+      (process.env.NODE_ENV === "production" ? "/jackson-bday-2026" : "") +
+      "/jackson.png";
 
     img.onload = () => {
       playerImage.current = img;
