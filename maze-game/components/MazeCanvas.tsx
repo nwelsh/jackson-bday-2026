@@ -1,5 +1,11 @@
 "use client";
 
+// ideas 
+/* 
+1. add music 
+2. when completed, a popup shows up that says a jackson-ism 
+*/
+
 import { useEffect, useRef, useState } from "react";
 import { generateMaze } from "../lib/maze";
 import { Cell } from "../lib/types";
