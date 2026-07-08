@@ -10,8 +10,8 @@ import { useEffect, useRef, useState } from "react";
 import { generateMaze } from "../lib/maze";
 import { Cell } from "../lib/types";
 
-const ROWS = 15;
-const COLS = 15;
+const ROWS = 12;
+const COLS = 12;
 
 export default function MazeCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -19,7 +19,9 @@ export default function MazeCanvas() {
 
   useEffect(() => {
     const img = new Image();
-    img.src = "/jackson-bday-2026/jackson.png";
+    img.src =
+      (process.env.NODE_ENV === "production" ? "/jackson-bday-2026" : "") +
+      "/jackson.png";
 
     img.onload = () => {
       playerImage.current = img;
