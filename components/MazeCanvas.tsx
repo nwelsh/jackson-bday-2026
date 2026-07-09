@@ -89,7 +89,7 @@ export default function MazeCanvas() {
     ctx.fillRect(0, 0, size, size);
 
     // Maze walls
-    ctx.strokeStyle = "white";
+    ctx.strokeStyle = "#00ffbf";
     ctx.lineWidth = 2;
 
     maze.forEach((row) => {
@@ -221,9 +221,9 @@ export default function MazeCanvas() {
         onTouchEnd={handleTouchEnd}
       />
 
-      <h1 className="title">happy birthday jackson 🎂</h1>
+      <h1 className="text">happy birthday jackson</h1>
 
-      <h1 className="title">💖 Mike and Nicole</h1>
+      <h1 className="text">💖 Mike and Nicole</h1>
 
       {showModal && (
         <div className="modal-overlay">

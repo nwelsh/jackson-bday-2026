@@ -17,6 +17,11 @@ canvas {
   text-align: center;
 }
 
+.text {
+  color: rgb(255, 117, 43);
+  text-align: center;
+}
+
 .modal-overlay {
   position: fixed;
   inset: 0;
