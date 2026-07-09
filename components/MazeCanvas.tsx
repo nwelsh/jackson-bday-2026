@@ -90,7 +90,7 @@ export default function MazeCanvas() {
 
     // Maze walls
     ctx.strokeStyle = "#00ffbf";
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 3;
 
     maze.forEach((row) => {
       row.forEach((cell) => {
@@ -213,7 +213,7 @@ export default function MazeCanvas() {
 
   return (
     <div className="maze-container">
-      <h1 className="title">HELP JACKSON GET TO BDUBS 🍗</h1>
+      <h1 className="title">HELP JACKSON GET TO HIS BDUBS 🍗</h1>
 
       <canvas
         ref={canvasRef}
