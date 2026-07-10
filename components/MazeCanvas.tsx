@@ -37,7 +37,8 @@ export default function MazeCanvas() {
     "remember when i kept tickling nick gomez HAHAHAHHAHAHA",
     "remember when i kept trying to pick up Jake HAHHHAHAHAHAH",
     "remember when i kissed jordyn 🙊",
-
+    "20 BONE-IN WINGS + FRIES WING DEAL AUTHENTIC BUFFALO, NEW YORK-STYLE CHICKEN WINGS, HANDSPUN IN CHOICE OF SAUCE OR DRY RUB, NATURAL-CUT FRENCH FRIES",
+    "20 bone-in wings + Large Fries + 4 dips all for $21.99. Only available when you order online or in the app. Price may be higher in AK, CA, HI, NY, OR & WA. Tax & fees (including service) extra. View terms",
   ];
 
   useEffect(() => {
